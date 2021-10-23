@@ -6,11 +6,13 @@ const isMetaMaskConnected = async () => {
 }
 
 export const getWalletAddress = async () => {
-    const currentWallet = ethereum.selectedAddress ?? await web3.eth.getAccounts()[0];
-    if (!currentWallet) {
+    const currentAddress = async () => (
+        ethereum.selectedAddress ?? await web3.eth.getAccounts()[0]
+    );
+    if (!await currentAddress()) {
         await connectMetaMask();
     }
-    return currentWallet;
+    return await currentAddress();
 }
 
 export const getCurrentNetwork = async () => {
