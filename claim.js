@@ -3,7 +3,9 @@ import { getWalletAddress } from "./wallet.js";
 
 const claimMintPass = async () => {
     const wallet = await getWalletAddress();
-    const tx = contract.methods.claim(1);
+    let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
+    quantity = quantity === 0 ? 1 : quantity;
+    const tx = contract.methods.claim(quantity);
     const txData = {
         from: wallet
     }
