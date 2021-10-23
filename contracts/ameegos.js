@@ -1,4 +1,4 @@
-export const ALLOWED_NETWORKS = [4]
+export const ALLOWED_NETWORKS = [1, 4]
 
 export const AMEEGOS_PASS_CONTRACT = {
     1: {
