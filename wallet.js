@@ -35,4 +35,4 @@ export const connectMetaMask = async (shouldReload = true) => {
 document.onload = () => {
     updateMetaMaskStatus();
 }
-document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetaMask);
+document.querySelector(window.buttonID ?? '#connect').addEventListener('click', async () => await connectMetaMask);
