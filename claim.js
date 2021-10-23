@@ -20,7 +20,7 @@ const claimMintPass = async () => {
       .catch((e) => {
             if (e.code !== 4001) {
                 const message = e.message.split("{")[0].trim();
-                alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
+                alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
                 console.log(e);
             }
       })
