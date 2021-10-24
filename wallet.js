@@ -2,7 +2,7 @@ export const web3 = new Web3(ethereum);
 
 const isMetaMaskConnected = async () => {
     let accounts = await web3.eth.getAccounts();
-    return accounts.length > 0;
+    return ethereum.selectedAddress !== undefined || accounts.length > 0;
 }
 
 export const getWalletAddress = async () => {
