@@ -2,7 +2,11 @@ export const web3 = new Web3(ethereum);
 
 const isMetaMaskConnected = async () => {
     let accounts = await web3.eth.getAccounts();
-    return ethereum.selectedAddress !== undefined || accounts.length > 0;
+    const isConnected = ethereum.selectedAddress !== undefined || accounts.length > 0;
+    if (isDebugMode()) {
+        alert(`CHECKED IS_CONNECTED: ${isConnected}`)
+    }
+    return isConnected
 }
 
 export const getWalletAddress = async () => {
@@ -19,10 +23,14 @@ export const getCurrentNetwork = async () => {
     return Number(await ethereum.request({ method: 'net_version' }));
 }
 
+const isDebugMode = () => {
+    return window.location.href.includes("mint-pass-debug")
+}
+
 export const updateMetaMaskStatus = () => {
     isMetaMaskConnected().then((connected) => {
-        if (window.location.href.includes("mint-pass-debug")) {
-            alert(`METAMASK CONNECTED ${connected}`)
+        if (isDebugMode()) {
+            alert(`METAMASK STATUS: CONNECTED ${connected}`)
         }
         let button = document.querySelector('#connect');
         if (connected) {
@@ -32,8 +40,14 @@ export const updateMetaMaskStatus = () => {
 }
 
 export const connectMetaMask = async () => {
+    if (isDebugMode()) {
+        alert(`CALLED CONNECT METAMASK`)
+    }
     if (await isMetaMaskConnected() === false) {
         await ethereum.enable();
+        if (isDebugMode()) {
+            alert(`ENABLED ETH OBJECT`)
+        }
         await updateMetaMaskStatus();
     }
 }
