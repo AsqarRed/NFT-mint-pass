@@ -1,20 +1,19 @@
 export const web3 = new Web3(ethereum);
 
-const isMetaMaskConnected = async () => {
-    let accounts = await web3.eth.getAccounts();
-    const isConnected = ethereum.selectedAddress !== undefined || accounts.length > 0;
+const isMetamaskConnected = () => {
+    const isConnected = ethereum.selectedAddress !== null;
     if (isDebugMode()) {
         alert(`CHECKED IS_CONNECTED: ${isConnected}`)
     }
-    return isConnected
+    return isConnected;
 }
 
 export const getWalletAddress = async () => {
     const currentAddress = async () => (
-        ethereum.selectedAddress ?? await web3.eth.getAccounts()[0]
+        ethereum.selectedAddress ?? await ethereum.request({ method: 'eth_requestAccounts' })[0]
     );
     if (!await currentAddress()) {
-        await connectMetaMask();
+        await connectMetamask();
     }
     return await currentAddress();
 }
@@ -27,30 +26,24 @@ const isDebugMode = () => {
     return window.location.href.includes("mint-pass-debug")
 }
 
-export const updateMetaMaskStatus = () => {
-    isMetaMaskConnected().then((connected) => {
-        if (isDebugMode()) {
-            alert(`METAMASK STATUS: CONNECTED ${connected}`)
-        }
-        let button = document.querySelector('#connect');
-        if (connected) {
-            button.textContent = "MetaMask connected";
-        }
-    });
+export const updateMetamaskStatus = () => {
+    const connected = isMetamaskConnected()
+    if (isDebugMode()) {
+        alert(`METAMASK STATUS: CONNECTED ${connected}`)
+    }
+    if (connected) {
+        const button = document.querySelector('#connect');
+        button.textContent = "MetaMask connected";
+    }
 }
 
-export const connectMetaMask = async () => {
+export const connectMetamask = async () => {
     if (isDebugMode()) {
         alert(`CALLED CONNECT METAMASK`)
     }
-    if (await isMetaMaskConnected() === false) {
-        await ethereum.enable();
-        if (isDebugMode()) {
-            alert(`ENABLED ETH OBJECT`)
-        }
-        await updateMetaMaskStatus();
-    }
+    await ethereum.request({ method: 'eth_requestAccounts' });
+    updateMetamaskStatus();
 }
 
-updateMetaMaskStatus();
-document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetaMask);
+updateMetamaskStatus();
+document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetamask);
