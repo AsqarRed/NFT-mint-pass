@@ -21,6 +21,9 @@ export const getCurrentNetwork = async () => {
 
 export const updateMetaMaskStatus = () => {
     isMetaMaskConnected().then((connected) => {
+        if (window.location.href.includes("mint-pass-debug")) {
+            alert(`METAMASK CONNECTED ${connected}`)
+        }
         let button = document.querySelector('#connect');
         if (connected) {
             button.textContent = "MetaMask connected";
