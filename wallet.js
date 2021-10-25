@@ -21,8 +21,13 @@ export const updateMetamaskStatus = () => {
 }
 
 export const connectMetamask = async () => {
-    await ethereum.request({ method: 'eth_requestAccounts' });
-    updateMetamaskStatus();
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (window.ethereum) {
+        await ethereum.request({ method: 'eth_requestAccounts' });
+        updateMetamaskStatus();
+    } else if (isMobile) {
+        window.open(`https://metamask.app.link/dapp/${window.location.href.replace("https://", "")}`)
+    }
 }
 
 updateMetamaskStatus();
