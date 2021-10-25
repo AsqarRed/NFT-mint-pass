@@ -28,7 +28,6 @@ export const updateMetamaskStatus = () => {
 
 export const connectMetamask = async () => {
     const isMobile = /Mobi/i.test(window.navigator.userAgent)
-    alert(`isMobile: ${isMobile}`)
     if (window.ethereum) {
         await ethereum.request({ method: 'eth_requestAccounts' });
         updateMetamaskStatus();
