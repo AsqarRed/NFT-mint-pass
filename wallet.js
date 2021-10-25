@@ -27,11 +27,13 @@ export const updateMetamaskStatus = () => {
 }
 
 export const connectMetamask = async () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = /Mobi/i.test(window.navigator.userAgent)
+    console.log("isMobile", isMobile)
     if (window.ethereum) {
         await ethereum.request({ method: 'eth_requestAccounts' });
         updateMetamaskStatus();
     } else if (isMobile) {
+        alert("Please use MetaMask app")
         window.open(`https://metamask.app.link/dapp/${window.location.href.replace("https://", "")}`)
     }
 }
