@@ -1,7 +1,7 @@
 export const web3 = new Web3(ethereum);
 
 const isMetamaskConnected = () => {
-    return ethereum.selectedAddress !== null;
+    return window.ethereum && ethereum.selectedAddress !== null;
 }
 
 export const getWalletAddress = async () => {
@@ -28,7 +28,7 @@ export const updateMetamaskStatus = () => {
 
 export const connectMetamask = async () => {
     const isMobile = /Mobi/i.test(window.navigator.userAgent)
-        && /iPhone|iPod|iPad/i.test(navigator.userAgent);
+        || /iPhone|iPod|iPad/i.test(navigator.userAgent);
     if (window.ethereum) {
         await ethereum.request({ method: 'eth_requestAccounts' });
         updateMetamaskStatus();
@@ -38,5 +38,5 @@ export const connectMetamask = async () => {
     }
 }
 
-updateMetamaskStatus();
 document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetamask);
+updateMetamaskStatus();
