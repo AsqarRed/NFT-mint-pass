@@ -5,7 +5,13 @@ const isMetamaskConnected = () => {
 }
 
 export const getWalletAddress = async () => {
-    return ethereum.selectedAddress ?? await ethereum.request({ method: 'eth_requestAccounts' })[0];
+    const currentAddress = async () => (
+        ethereum.selectedAddress ?? await ethereum.request({ method: 'eth_requestAccounts' })[0]
+    );
+    if (!await currentAddress()) {
+        await connectMetamask();
+    }
+    return await currentAddress();
 }
 
 export const getCurrentNetwork = async () => {
