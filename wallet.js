@@ -1,13 +1,16 @@
-export const web3 = new Web3(ethereum);
+export const web3 = window.ethereum ? new Web3(ethereum) : undefined;
 
 const isMetamaskConnected = () => {
-    return window.ethereum && ethereum.selectedAddress !== null;
+    return window.ethereum && ethereum?.selectedAddress !== null;
 }
 
 export const getWalletAddress = async () => {
-    const currentAddress = async () => (
-        ethereum.selectedAddress ?? await ethereum.request({ method: 'eth_requestAccounts' })[0]
-    );
+    const currentAddress = async () => {
+        if (!window.ethereum) {
+            return undefined;
+        }
+        return ethereum?.selectedAddress ?? await ethereum.request({ method: 'eth_requestAccounts' })[0];
+    }
     if (!await currentAddress()) {
         await connectMetamask();
     }
@@ -33,8 +36,10 @@ export const connectMetamask = async () => {
         await ethereum.request({ method: 'eth_requestAccounts' });
         updateMetamaskStatus();
     } else if (isMobile) {
-        alert("Please use MetaMask app")
-        window.open(`https://metamask.app.link/dapp/${window.location.href.replace("https://", "")}`)
+        const link = window.location.href
+            .replace("https://", "")
+            .replace("www.", "");
+        window.open(`https://metamask.app.link/dapp/${link}`);
     }
 }
 
