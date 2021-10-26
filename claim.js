@@ -47,9 +47,13 @@ const redeemMintPass = async (button) => {
     const price = await NFTContract.methods.cost().call();
     const txData = {
         from: wallet,
-        value: price * quantity
+        value: String(Number(price) * quantity)
     }
     const estimatedGas = await tx.estimateGas(txData).catch((e) => {
+        // Default to 300k in case of insufficient funds
+        if (e.code === -32000) {
+            return 300000;
+        }
         button.textContent = previousBtnText;
         const message = e.message.split("{")[0].trim();
         alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
