@@ -26,12 +26,6 @@ export const getCurrentNetwork = async () => {
 
 export const updateMetamaskStatus = async () => {
     const connected = await isMetamaskConnected()
-    if (window.location.href.includes('mint-pass-debug')) {
-        alert(`isConnected: ${connected}`)
-        alert(ethereum.selectedAddress)
-        alert(typeof window.ethereum)
-        alert(navigator.userAgent)
-    }
     if (connected) {
         const button = document.querySelector(window.buttonID ?? '#connect');
         button.textContent = "Metamask connected";
