@@ -49,6 +49,7 @@ const redeemMintPass = async (button) => {
         from: wallet,
         value: String(Number(price) * quantity)
     }
+    console.log(txData)
     const estimatedGas = await tx.estimateGas(txData).catch((e) => {
         // Default to 300k in case of insufficient funds
         if (e.code === -32000) {
