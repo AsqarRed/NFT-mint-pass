@@ -32,12 +32,11 @@ export const updateMetamaskStatus = async () => {
     }
 }
 
-const isMobile = () => (/Mobi/i.test(window.navigator.userAgent)
+const getIsMobile = () => (/Mobi/i.test(window.navigator.userAgent)
     || /iPhone|iPod|iPad/i.test(navigator.userAgent));
 
 export const connectMetamask = async () => {
-    const isMobile = /Mobi/i.test(window.navigator.userAgent)
-        || /iPhone|iPod|iPad/i.test(navigator.userAgent);
+    const isMobile = getIsMobile();
     if (window.ethereum) {
         await ethereum.request({ method: 'eth_requestAccounts' });
         await updateMetamaskStatus();
