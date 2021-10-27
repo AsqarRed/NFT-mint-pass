@@ -32,6 +32,9 @@ export const updateMetamaskStatus = async () => {
     }
 }
 
+const isMobile = () => (/Mobi/i.test(window.navigator.userAgent)
+    || /iPhone|iPod|iPad/i.test(navigator.userAgent));
+
 export const connectMetamask = async () => {
     const isMobile = /Mobi/i.test(window.navigator.userAgent)
         || /iPhone|iPod|iPad/i.test(navigator.userAgent);
@@ -45,9 +48,6 @@ export const connectMetamask = async () => {
         window.open(`https://metamask.app.link/dapp/${link}`);
     }
 }
-
-const isMobile = () => (/Mobi/i.test(window.navigator.userAgent)
-    || /iPhone|iPod|iPad/i.test(navigator.userAgent));
 
 document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetamask);
 await updateMetamaskStatus();
