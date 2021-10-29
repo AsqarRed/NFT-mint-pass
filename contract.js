@@ -1,17 +1,21 @@
 import {
-    ALLOWED_NETWORKS,
+    getAllowedNetworks,
     AMEEGOS_NFT_CONTRACT,
     AMEEGOS_PASS_CONTRACT
 } from './contracts/ameegos.js';
-import { getCurrentNetwork, web3 } from './wallet.js';
+import {getCurrentNetwork, switchNetwork, web3} from './wallet.js';
 
 export let NFTContract;
 export let passContract;
 
 const initContract = async (contract) => {
-    const currentNetwork = await getCurrentNetwork();
-    if (!ALLOWED_NETWORKS.includes(currentNetwork)) {
-        alert("You're on the wrong network. Please try switching to mainnet or Rinkeby, and refresh the page")
+    if (!contract.allowedURLs.some(v => window.location.href.includes(v))) {
+        return undefined;
+    }
+    let currentNetwork = await getCurrentNetwork();
+    if (!getAllowedNetworks(contract).includes(currentNetwork)) {
+        await switchNetwork(getAllowedNetworks(contract)[0])
+        currentNetwork = await getCurrentNetwork();
     }
     const address = contract.address[currentNetwork];
     const abi = contract.abi;

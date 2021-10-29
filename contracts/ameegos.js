@@ -1,6 +1,7 @@
-export const ALLOWED_NETWORKS = [1, 4]
+export const getAllowedNetworks = () => [1, 4]
 
 export const AMEEGOS_PASS_CONTRACT = {
+    allowedURLs: ["/mint-pass", "/ameegos-mint"],
     address: {
         1: "0x7B3e3758a35CE827B63c04416DDDbf804543835f",
         4: "0x5d011efE06cfe62921662334214cA095332802D9",
@@ -9,6 +10,7 @@ export const AMEEGOS_PASS_CONTRACT = {
 }
 
 export const AMEEGOS_NFT_CONTRACT = {
+    allowedURLs: ["/mint-pass", "/ameegos-mint"],
     address: {
         1: '0xF522B448DbF8884038c684B5c3De95654007Fd2B'
     },
