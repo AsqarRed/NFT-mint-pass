@@ -44,7 +44,7 @@ const redeemMintPass = async (button) => {
     let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
     quantity = quantity === 0 ? 1 : quantity;
     const tx = passContract.methods.redeem(quantity);
-    const price = await NFTContract.methods.price().call();
+    const price = await (NFTContract.methods.getPrice ?? NFTContract.methods.cost)().call()
     const txData = {
         from: wallet,
         value: String(Number(price) * quantity)
