@@ -52,7 +52,7 @@ const redeemMintPass = async (button) => {
     console.log(txData)
     const estimatedGas = await tx.estimateGas(txData).catch((e) => {
         // Default to 300k in case of insufficient funds
-        const code = e.code ?? JSON.parse(`{${e.message.split("{")[1]}`);
+        const code = e.code ?? JSON.parse(`{${e.message.split("{")[1]}`).code;
         if (code === -32000) {
             return 300000;
         }
@@ -68,7 +68,8 @@ const redeemMintPass = async (button) => {
     tx.send({...txData, gasLimit: estimatedGas + 5000})
         .catch((e) => {
             button.textContent = previousBtnText;
-            if (e.code !== 4001) {
+            const code = e.code ?? JSON.parse(`{${e.message.split("{")[1]}`).code;
+            if (code !== 4001) {
                 const message = e.message.split("{")[0].trim();
                 alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
                 console.log(e);
