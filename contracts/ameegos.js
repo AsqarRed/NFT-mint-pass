@@ -1,4 +1,4 @@
-export const getAllowedNetworks = () => [80001]
+export const getAllowedNetworks = () => [137, 80001]
 
 export const AMEEGOS_PASS_CONTRACT = {
     allowedURLs: ["/mint-pass", "/ameegos-mint"],
