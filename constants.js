@@ -28,5 +28,15 @@ export const NETWORKS = {
             decimals: 18
         },
         blockExplorerURL: "https://polygonscan.com"
+    },
+    80001: {
+        name: "Mumbai (Polygon Testnet)",
+        rpcURL: "https://rpc-mumbai.maticvigil.com/",
+        currency: {
+            name: "Matic",
+            symbol: "MATIC",
+            decimals: 18
+        },
+        blockExplorerURL: "https://mumbai.polygonscan.com"
     }
 }
