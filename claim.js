@@ -52,7 +52,8 @@ const redeemMintPass = async (button) => {
     console.log(txData)
     const estimatedGas = await tx.estimateGas(txData).catch((e) => {
         // Default to 300k in case of insufficient funds
-        if (e.code === -32000) {
+        const code = e.code ?? JSON.parse(`{${e.message.split("{")[1]}`);
+        if (code === -32000) {
             return 300000;
         }
         button.textContent = previousBtnText;
