@@ -52,7 +52,7 @@ export const switchNetwork = async (chainID) => {
                             chainId: chainIDHex,
                             nativeCurrency: NETWORKS[chainID].currency,
                             chainName: NETWORKS[chainID].name,
-                            rpcUrl: NETWORKS[chainID].rpcURL,
+                            rpcUrls: [NETWORKS[chainID].rpcURL],
                             blockExplorerUrls: [NETWORKS[chainID].blockExplorerURL]
                         },
                     ],
