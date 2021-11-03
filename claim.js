@@ -1,5 +1,6 @@
 import { passContract, NFTContract } from "./contract.js";
 import { getWalletAddress } from "./wallet.js";
+import {formatValue} from "./utils.js";
 
 const claimMintPass = async (button) => {
     const previousBtnText = button.textContent;
@@ -47,7 +48,7 @@ const redeemMintPass = async (button) => {
     const price = await (NFTContract.methods.getPrice ?? NFTContract.methods.cost)().call()
     const txData = {
         from: wallet,
-        value: String(Number(price) * quantity)
+        value: formatValue(Number(price) * quantity)
     }
     console.log(txData)
     const estimatedGas = await tx.estimateGas(txData).catch((e) => {
