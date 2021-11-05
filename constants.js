@@ -38,5 +38,26 @@ export const NETWORKS = {
             decimals: 18
         },
         blockExplorerURL: "https://mumbai.polygonscan.com"
-    }
+    },
+    56: {
+        name: "Binance",
+        rpcURL: "https://bsc-dataseed1.binance.org",
+        currency: {
+            name: "Binance Coin",
+            symbol: "BNB",
+            decimals: 18,
+        },
+        blockExplorerURL: "https://bscscan.com",
+    },
+    97: {
+        name: "Binance (Chapel Testnet)",
+        rpcURL: "https://data-seed-prebsc-1-s1.binance.org:8545",
+        currency: {
+            name: "Binance Coin",
+            symbol: "tBNB",
+            decimals: 18,
+        },
+        blockExplorerURL: "https://testnet.bscscan.com",
+    },
+    
 }
