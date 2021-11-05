@@ -1,6 +1,6 @@
 import { passContract, NFTContract } from "./contract.js";
 import { getWalletAddress } from "./wallet.js";
-import {formatValue} from "./utils.js";
+import { formatValue } from "./utils.js";
 
 const claimMintPass = async (button) => {
     const previousBtnText = button.textContent;
@@ -38,13 +38,14 @@ const claimMintPass = async (button) => {
 
 };
 
-const redeemMintPass = async (button) => {
+const mintOrRedeemPass = async (button) => {
     const previousBtnText = button.textContent;
     button.textContent = "Loading...";
     const wallet = await getWalletAddress();
     let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
     quantity = quantity === 0 ? 1 : quantity;
-    const tx = passContract.methods.redeem(quantity);
+    const hasSaleStarted = await NFTContract.methods.saleStarted().call();
+    const tx = hasSaleStarted ? NFTContract.methods.mint(quantity) : passContract.methods.redeem(quantity);
     const price = await (NFTContract.methods.getPrice ?? NFTContract.methods.cost)().call()
     const txData = {
         from: wallet,
@@ -82,6 +83,7 @@ const redeemMintPass = async (button) => {
         })
 };
 
+
 export const insertClaimLink = () => {
     const claimButton = document.querySelector("#claim-mint-pass");
     if (claimButton) {
@@ -92,7 +94,7 @@ export const insertClaimLink = () => {
     const redeemButton = document.querySelector("#redeem-mint-pass");
     if (redeemButton) {
         redeemButton.onclick = async () => {
-            await redeemMintPass(redeemButton);
+            await mintOrRedeemPass(redeemButton);
         }
     }
 }
