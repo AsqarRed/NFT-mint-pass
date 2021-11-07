@@ -85,13 +85,15 @@ const mintOrRedeemPass = async (button) => {
 
 
 export const insertClaimLink = () => {
-    const claimButton = document.querySelector("#claim-mint-pass");
+    const claimButton = document.querySelector("#claim-mint-pass")
+        ?? document.querySelector("a[href='#claim-mint-pass']");
     if (claimButton) {
         claimButton.onclick = async () => {
             await claimMintPass(claimButton);
         }
     }
-    const redeemButton = document.querySelector("#redeem-mint-pass");
+    const redeemButton = document.querySelector("#redeem-mint-pass")
+        ?? document.querySelector("a[href='#redeem-mint-pass']");
     if (redeemButton) {
         redeemButton.onclick = async () => {
             await mintOrRedeemPass(redeemButton);

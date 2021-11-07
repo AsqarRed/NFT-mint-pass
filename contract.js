@@ -1,20 +1,16 @@
-import {
-    getAllowedNetworks,
-    AMEEGOS_NFT_CONTRACT,
-    AMEEGOS_PASS_CONTRACT
-} from './contracts/ameegos.js';
-import {getCurrentNetwork, switchNetwork, web3} from './wallet.js';
+import { getCurrentNetwork, switchNetwork, web3 } from './wallet.js';
+import { CONTRACTS } from "./contracts/index.js";
 
 export let NFTContract;
 export let passContract;
 
 const initContract = async (contract) => {
-    if (!contract.allowedURLs.some(v => window.location.href.includes(v))) {
+    if (!contract?.allowedURLs?.some(v => window.location.href.includes(v))) {
         return undefined;
     }
     let currentNetwork = await getCurrentNetwork();
-    if (!getAllowedNetworks(contract).includes(currentNetwork)) {
-        await switchNetwork(getAllowedNetworks(contract)[0])
+    if (!contract.allowedNetworks.includes(currentNetwork)) {
+        await switchNetwork(contract.allowedNetworks[0])
         currentNetwork = await getCurrentNetwork();
     }
     const address = contract.address[currentNetwork];
@@ -23,8 +19,10 @@ const initContract = async (contract) => {
 }
 
 export const setContracts = async () => {
-    NFTContract = await initContract(AMEEGOS_NFT_CONTRACT);
-    passContract = await initContract(AMEEGOS_PASS_CONTRACT);
+    const hostname = window.location.hostname.replace('www.', '');
+    NFTContract = await initContract(CONTRACTS[hostname].nft);
+    passContract = await initContract(CONTRACTS[hostname].pass);
     window.passContract = passContract;
     window.NFTContract = NFTContract;
 }
+

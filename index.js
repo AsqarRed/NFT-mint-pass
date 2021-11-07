@@ -1,8 +1,9 @@
 import { insertClaimLink } from "./claim.js";
-import { updateMetamaskStatus } from "./wallet.js";
+import {updateConnectButton, updateMetamaskStatus} from "./wallet.js";
 import { setContracts } from "./contract.js";
 
 const init = async () => {
+    updateConnectButton()
     await updateMetamaskStatus();
     await setContracts();
     insertClaimLink();

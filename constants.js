@@ -50,7 +50,7 @@ export const NETWORKS = {
         blockExplorerURL: "https://bscscan.com",
     },
     97: {
-        name: "Binance (Chapel Testnet)",
+        name: "Binance Smart Chain Testnet",
         rpcURL: "https://data-seed-prebsc-1-s1.binance.org:8545",
         currency: {
             name: "Binance Coin",
@@ -59,5 +59,5 @@ export const NETWORKS = {
         },
         blockExplorerURL: "https://testnet.bscscan.com",
     },
-    
+
 }
