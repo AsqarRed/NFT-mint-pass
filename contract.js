@@ -5,7 +5,7 @@ export let NFTContract;
 export let passContract;
 
 const initContract = async (contract) => {
-    if (!contract.allowedURLs.some(v => window.location.href.includes(v))) {
+    if (!contract?.allowedURLs?.some(v => window.location.href.includes(v))) {
         return undefined;
     }
     let currentNetwork = await getCurrentNetwork();

@@ -90,4 +90,12 @@ export const connectMetamask = async () => {
     }
 }
 
-document.querySelector(window.buttonID ?? '#connect').addEventListener('click', connectMetamask);
+export const updateConnectButton = () => {
+    const btnID = window.buttonID ?? '#connect';
+    const walletBtn = document.querySelector(btnID)
+        ?? document.querySelector(`a[href='${btnID}']`);
+    if (walletBtn) {
+        walletBtn.addEventListener('click', connectMetamask);
+    }
+}
+
