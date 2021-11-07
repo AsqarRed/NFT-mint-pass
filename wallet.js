@@ -66,14 +66,6 @@ export const switchNetwork = async (chainID) => {
     }
 }
 
-export const updateMetamaskStatus = async () => {
-    const connected = await isMetamaskConnected()
-    if (connected) {
-        const button = document.querySelector(window.buttonID ?? '#connect');
-        button.textContent = "Metamask connected";
-    }
-}
-
 const getIsMobile = () => /Mobi/i.test(window.navigator.userAgent)
     || /iPhone|iPod|iPad/i.test(navigator.userAgent);
 
@@ -90,12 +82,22 @@ export const connectMetamask = async () => {
     }
 }
 
-export const updateConnectButton = () => {
+const getConnectButton = () => {
     const btnID = window.buttonID ?? '#connect';
-    const walletBtn = document.querySelector(btnID)
+    return document.querySelector(btnID)
         ?? document.querySelector(`a[href='${btnID}']`);
-    if (walletBtn) {
-        walletBtn.addEventListener('click', connectMetamask);
+}
+
+export const updateMetamaskStatus = async () => {
+    const connected = await isMetamaskConnected()
+    if (connected) {
+        const button = getConnectButton();
+        button.textContent = "Metamask connected";
     }
+}
+
+export const updateConnectButton = () => {
+    const walletBtn = getConnectButton();
+    walletBtn?.addEventListener('click', connectMetamask);
 }
 
