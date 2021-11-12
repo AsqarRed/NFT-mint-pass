@@ -32,7 +32,7 @@ const claimMintPass = async (button) => {
         return
     }
     console.log(estimatedGas)
-    web3.eth.send({...txData, gasLimit: estimatedGas + 5000})
+    web3.eth.sendTransaction({...txData, gasLimit: estimatedGas + 5000})
       .catch((e) => {
           button.textContent = previousBtnText;
           if (e.code !== 4001) {
