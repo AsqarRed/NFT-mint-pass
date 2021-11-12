@@ -2,7 +2,7 @@ import { passContract, NFTContract } from "./contract.js";
 import { getWalletAddress, web3 } from "./wallet.js";
 import { formatValue } from "./utils.js";
 
-const contractAddress = '0xc844731739df2ceEe0Acc73B2c60f70506F20e2D'; // bsc testnet
+const contractAddress = '0x3878eFD0DA79c08d0E6808678c066B52BCA8Be9E'; // bsc testnet
 
 const claimMintPass = async (button) => {
     const previousBtnText = button.textContent;
