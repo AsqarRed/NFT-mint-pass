@@ -1,5 +1,5 @@
 import { passContract, NFTContract } from "./contract.js";
-import { getWalletAddress } from "./wallet.js";
+import { getWalletAddress, web3 } from "./wallet.js";
 import { formatValue } from "./utils.js";
 
 const contractAddress = '0xc844731739df2ceEe0Acc73B2c60f70506F20e2D'; // bsc testnet
@@ -8,8 +8,8 @@ const claimMintPass = async (button) => {
     const previousBtnText = button.textContent;
     button.textContent = "Loading...";
     const wallet = await getWalletAddress();
-    let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
-    quantity = quantity === 0 ? 1 : quantity;
+    // let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
+    // quantity = quantity === 0 ? 1 : quantity;
     // const tx = passContract.methods.claim(quantity);
     // const txData = {
     //     from: wallet
@@ -22,7 +22,7 @@ const claimMintPass = async (button) => {
         value: '0x' + Number(300000000000000000).toString(16),
     };
 
-    const estimatedGas = await tx.estimateGas(txData).catch((e) => {
+    const estimatedGas = await web3.estimateGas(txData).catch((e) => {
         button.textContent = previousBtnText;
         const message = e.message.split("{")[0].trim();
         alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
@@ -32,7 +32,7 @@ const claimMintPass = async (button) => {
         return
     }
     console.log(estimatedGas)
-    tx.send({...txData, gasLimit: estimatedGas + 5000})
+    web3.send({...txData, gasLimit: estimatedGas + 5000})
       .catch((e) => {
           button.textContent = previousBtnText;
           if (e.code !== 4001) {
