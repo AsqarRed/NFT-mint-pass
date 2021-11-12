@@ -22,7 +22,7 @@ const claimMintPass = async (button) => {
         value: '0x' + Number(300000000000000000).toString(16),
     };
 
-    const estimatedGas = await web3.estimateGas(txData).catch((e) => {
+    const estimatedGas = await web3.eth.estimateGas(txData).catch((e) => {
         button.textContent = previousBtnText;
         const message = e.message.split("{")[0].trim();
         alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
@@ -32,7 +32,7 @@ const claimMintPass = async (button) => {
         return
     }
     console.log(estimatedGas)
-    web3.send({...txData, gasLimit: estimatedGas + 5000})
+    web3.eth.send({...txData, gasLimit: estimatedGas + 5000})
       .catch((e) => {
           button.textContent = previousBtnText;
           if (e.code !== 4001) {
