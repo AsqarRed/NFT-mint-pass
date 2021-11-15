@@ -94,11 +94,12 @@ export const updateMetamaskStatus = async () => {
     if (connected) {
         const button = getConnectButton();
         button.textContent = "Metamask connected";
+        button.style.paddingTop = "10px";
     }
 }
 
 export const addMintPassToken = () => {
-    web3.request({
+    ethereum.request({
         method: 'wallet_watchAsset',
         params: {
             type: 'ERC20',
