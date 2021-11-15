@@ -1,15 +1,11 @@
 export const METOSHI_PASS_CONTRACT_V2 = {
     allowedURLs: ["metoshi.com"],
     address: {
-        97: "0x8e5810AeF35b55BB31554fF15eFEB11473570Cc5"
+        97: "0xdeb3813918963b9079F004278E6E380df4049F25"
     },
     allowedNetworks: [97],
     abi: [{
-        "inputs": [{
-            "internalType": "address",
-            "name": "_mintpasstoken",
-            "type": "address"
-        }, {"internalType": "address", "name": "_owner", "type": "address"}, {
+        "inputs": [{"internalType": "address", "name": "_owner", "type": "address"}, {
             "internalType": "address",
             "name": "_treasury",
             "type": "address"
@@ -112,6 +108,12 @@ export const METOSHI_PASS_CONTRACT_V2 = {
         "type": "function"
     }, {
         "inputs": [],
+        "name": "approvedBy",
+        "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "inputs": [],
         "name": "bnbPerToken",
         "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
         "stateMutability": "view",
@@ -145,6 +147,12 @@ export const METOSHI_PASS_CONTRACT_V2 = {
         "stateMutability": "nonpayable",
         "type": "function"
     }, {
+        "inputs": [{"internalType": "uint256", "name": "_total", "type": "uint256"}],
+        "name": "changeTotalCount",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
         "inputs": [{"internalType": "address", "name": "_treasury", "type": "address"}],
         "name": "changeTreasury",
         "outputs": [],
@@ -159,9 +167,9 @@ export const METOSHI_PASS_CONTRACT_V2 = {
             "type": "uint256"
         }, {"internalType": "uint256", "name": "_sold", "type": "uint256"}, {
             "internalType": "uint256",
-            "name": "_blockTimestampLast",
+            "name": "_reserves",
             "type": "uint256"
-        }],
+        }, {"internalType": "uint256", "name": "_blockTimestampLast", "type": "uint256"}],
         "stateMutability": "view",
         "type": "function"
     }, {
@@ -191,6 +199,16 @@ export const METOSHI_PASS_CONTRACT_V2 = {
         "name": "hasRole",
         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
         "stateMutability": "view",
+        "type": "function"
+    }, {
+        "inputs": [{"internalType": "address", "name": "_approver", "type": "address"}, {
+            "internalType": "address",
+            "name": "_contract",
+            "type": "address"
+        }, {"internalType": "uint256", "name": "count", "type": "uint256"}],
+        "name": "initSell",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     }, {
         "inputs": [],
@@ -284,6 +302,12 @@ export const METOSHI_PASS_CONTRACT_V2 = {
         "inputs": [{"internalType": "bytes4", "name": "interfaceId", "type": "bytes4"}],
         "name": "supportsInterface",
         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "inputs": [],
+        "name": "totalAdded",
+        "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
         "stateMutability": "view",
         "type": "function"
     }, {

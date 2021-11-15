@@ -2,7 +2,7 @@ import {NFTContract, passContract, passSellContract} from "./contract.js";
 import {getWalletAddress, web3} from "./wallet.js";
 import {formatValue} from "./utils.js";
 
-const contractAddress = '0x8e5810AeF35b55BB31554fF15eFEB11473570Cc5'; // bsc testnet
+const contractAddress = '0xdeb3813918963b9079F004278E6E380df4049F25'; // bsc testnet
 
 const claimMintPass = async (button) => {
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
@@ -48,7 +48,7 @@ const claimMintPass = async (button) => {
             if (r !== undefined && r.status) {
                 // alert(`Mintpass was bought`);
                 let sold = await passSellContract.methods.sold().call();
-                let reserve = await passSellContract.methods.reserveTokens().call();
+                let reserve = await passSellContract.methods.totalAdded().call();
                 sellInfo.textContent = `${sold}/${reserve}`;
             }
 
@@ -119,6 +119,6 @@ export const insertClaimLink = async () => {
     }
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
     let sold = await passSellContract.methods.sold().call();
-    let reserve = await passSellContract.methods.reserveTokens().call();
+    let reserve = await passSellContract.methods.totalAdded().call();
     sellInfo.textContent = `${sold}/${reserve}`;
 }
