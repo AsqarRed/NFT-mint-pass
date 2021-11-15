@@ -74,6 +74,7 @@ export const connectMetamask = async () => {
     if (window.ethereum) {
         await ethereum.request({ method: 'eth_requestAccounts' });
         await updateMetamaskStatus();
+        await addMintPassToken();
     } else if (isMobile) {
         const link = window.location.href
             .replace("https://", "")
