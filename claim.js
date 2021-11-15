@@ -1,10 +1,11 @@
-import { passContract, NFTContract } from "./contract.js";
-import { getWalletAddress, web3 } from "./wallet.js";
-import { formatValue } from "./utils.js";
+import {NFTContract, passContract, passSellContract} from "./contract.js";
+import {getWalletAddress, web3} from "./wallet.js";
+import {formatValue} from "./utils.js";
 
 const contractAddress = '0x3878eFD0DA79c08d0E6808678c066B52BCA8Be9E'; // bsc testnet
 
 const claimMintPass = async (button) => {
+    const sellInfo = document.querySelector("#sell-info-mint-pass");
     const previousBtnText = button.textContent;
     button.textContent = "Loading...";
     const wallet = await getWalletAddress();
@@ -33,18 +34,25 @@ const claimMintPass = async (button) => {
     }
     console.log(estimatedGas)
     web3.eth.sendTransaction({...txData, gasLimit: estimatedGas + 5000})
-      .catch((e) => {
-          button.textContent = previousBtnText;
-          if (e.code !== 4001) {
-            const message = e.message.split("{")[0].trim();
-            alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
-            console.log(e);
-          }
-      })
-      .then((r) => {
-          button.textContent = previousBtnText;
-          console.log(r);
-      })
+        .catch((e) => {
+            button.textContent = previousBtnText;
+            if (e.code !== 4001) {
+                const message = e.message.split("{")[0].trim();
+                alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
+                console.log(e);
+            }
+        })
+        .then(async (r) => {
+            button.textContent = previousBtnText;
+            console.log(r);
+            if (r.status) {
+                alert(`Mintpass was bought`);
+                let sold = await passSellContract.methods.sold().call();
+                let reserve = await passSellContract.methods.reserveTokens().call();
+                sellInfo.textContent = `${sold}/${reserve}`;
+            }
+
+        })
 
 };
 
