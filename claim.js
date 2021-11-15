@@ -103,6 +103,13 @@ const mintOrRedeemPass = async (button) => {
 
 
 export const insertClaimLink = async () => {
+
+    let remainTokens = await passSellContract.methods.reserveTokens().call();
+
+    if (remainTokens !== undefined && remainTokens === 0) {
+        alert(`All tokens sold out!`);
+    }
+
     const claimButton = document.querySelector("#claim-mint-pass")
         ?? document.querySelector("a[href='#claim-mint-pass']");
     if (claimButton) {
