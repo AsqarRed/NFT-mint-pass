@@ -50,7 +50,7 @@ const claimMintPass = async (button) => {
                 // alert(`Mintpass was bought`);
                 let sold = await passSellContract.methods.sold().call();
                 let reserve = await passSellContract.methods.totalAdded().call();
-                sellInfo.textContent = `${sold}/${reserve}`;
+                sellInfo.textContent = `${(reserve - sold)}/${reserve}`;
             }
 
         })
@@ -128,5 +128,5 @@ export const insertClaimLink = async () => {
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
     let sold = await passSellContract.methods.sold().call();
     let reserve = await passSellContract.methods.totalAdded().call();
-    sellInfo.textContent = `${sold}/${reserve}`;
+    sellInfo.textContent = `${(reserve - sold)}/${reserve}`;
 }
