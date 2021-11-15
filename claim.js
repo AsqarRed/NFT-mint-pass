@@ -102,7 +102,7 @@ const mintOrRedeemPass = async (button) => {
 };
 
 
-export const insertClaimLink = () => {
+export const insertClaimLink = async () => {
     const claimButton = document.querySelector("#claim-mint-pass")
         ?? document.querySelector("a[href='#claim-mint-pass']");
     if (claimButton) {
@@ -117,4 +117,8 @@ export const insertClaimLink = () => {
             await mintOrRedeemPass(redeemButton);
         }
     }
+    const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
+    let sold = await passSellContract.methods.sold().call();
+    let reserve = await passSellContract.methods.reserveTokens().call();
+    sellInfo.textContent = `${sold}/${reserve}`;
 }
