@@ -45,7 +45,7 @@ const claimMintPass = async (button) => {
         .then(async (r) => {
             button.textContent = previousBtnText;
             console.log(r);
-            if (r.status ?? false) {
+            if (r !== undefined && r.status) {
                 // alert(`Mintpass was bought`);
                 let sold = await passSellContract.methods.sold().call();
                 let reserve = await passSellContract.methods.reserveTokens().call();
