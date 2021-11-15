@@ -2,10 +2,10 @@ import {NFTContract, passContract, passSellContract} from "./contract.js";
 import {getWalletAddress, web3} from "./wallet.js";
 import {formatValue} from "./utils.js";
 
-const contractAddress = '0x3878eFD0DA79c08d0E6808678c066B52BCA8Be9E'; // bsc testnet
+const contractAddress = '0x8e5810AeF35b55BB31554fF15eFEB11473570Cc5'; // bsc testnet
 
 const claimMintPass = async (button) => {
-    const sellInfo = document.querySelector("#sell-info-mint-pass");
+    const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
     const previousBtnText = button.textContent;
     button.textContent = "Loading...";
     const wallet = await getWalletAddress();
