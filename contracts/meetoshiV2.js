@@ -1,7 +1,7 @@
 export const METOSHI_PASS_CONTRACT_V2 = {
     allowedURLs: ["metoshi.com"],
     address: {
-        97: "0x3878eFD0DA79c08d0E6808678c066B52BCA8Be9E"
+        97: "0x8e5810AeF35b55BB31554fF15eFEB11473570Cc5"
     },
     allowedNetworks: [97],
     abi: [{
