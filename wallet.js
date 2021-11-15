@@ -1,4 +1,4 @@
-import {NETWORKS} from "./constants.js";
+import {MINT_PASS_TOKEN_ADDRESS, MINT_PASS_TOKEN_LOGO, NETWORKS} from "./constants.js";
 
 export const web3 = window.ethereum ? new Web3(ethereum) : undefined;
 
@@ -94,6 +94,29 @@ export const updateMetamaskStatus = async () => {
         const button = getConnectButton();
         button.textContent = "Metamask connected";
     }
+}
+
+export const addMintPassToken = () => {
+    web3.request({
+        method: 'wallet_watchAsset',
+        params: {
+            type: 'ERC20',
+            options: {
+                address: MINT_PASS_TOKEN_ADDRESS,
+                symbol: 'MNFT PASS',
+                decimals: 0,
+                image: MINT_PASS_TOKEN_LOGO,
+            },
+        },
+    })
+        .then((success) => {
+            if (success) {
+                console.log('Mint pass token successfully added to wallet!')
+            } else {
+                throw new Error('Something went wrong.')
+            }
+        })
+        .catch(console.error)
 }
 
 export const updateConnectButton = () => {

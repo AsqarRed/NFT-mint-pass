@@ -1,8 +1,9 @@
 import {NFTContract, passContract, passSellContract} from "./contract.js";
+import {MINT_PASS_TOKEN_SELL_CONTRACT} from "./constants.js";
 import {getWalletAddress, web3} from "./wallet.js";
 import {formatValue} from "./utils.js";
 
-const contractAddress = '0xdeb3813918963b9079F004278E6E380df4049F25'; // bsc testnet
+const contractAddress = MINT_PASS_TOKEN_SELL_CONTRACT;
 
 const claimMintPass = async (button) => {
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
