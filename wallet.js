@@ -99,26 +99,32 @@ export const updateMetamaskStatus = async () => {
 }
 
 export const addMintPassToken = () => {
-    ethereum.request({
-        method: 'wallet_watchAsset',
-        params: {
-            type: 'ERC20',
-            options: {
-                address: MINT_PASS_TOKEN_ADDRESS,
-                symbol: 'MNFT PASS',
-                decimals: 0,
-                image: MINT_PASS_TOKEN_LOGO,
+
+    let addedMintpassTokens = localStorage.getItem('addedMintpassTokens');
+
+    if (addedMintpassTokens === undefined) {
+        ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+                type: 'ERC20',
+                options: {
+                    address: MINT_PASS_TOKEN_ADDRESS,
+                    symbol: 'MNFT PASS',
+                    decimals: 0,
+                    image: MINT_PASS_TOKEN_LOGO,
+                },
             },
-        },
-    })
-        .then((success) => {
-            if (success) {
-                console.log('Mint pass token successfully added to wallet!')
-            } else {
-                throw new Error('Something went wrong.')
-            }
         })
-        .catch(console.error)
+            .then((success) => {
+                if (success) {
+                    console.log('Mint pass token successfully added to wallet!')
+                } else {
+                    throw new Error('Something went wrong.')
+                }
+            })
+            .catch(console.error)
+        localStorage.setItem('addedMintpassTokens', 'true');
+    }
 }
 
 export const updateConnectButton = () => {
