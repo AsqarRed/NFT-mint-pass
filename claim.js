@@ -22,16 +22,7 @@ const claimMintPass = async (button) => {
         data: tx
     };
 
-    const estimatedGas = await tx.estimateGas(txData).catch((e) => {
-        button.textContent = previousBtnText;
-        // const message = e.message.split("{")[0].trim();
-        // alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
-        console.log(e);
-    });
-    if (estimatedGas === undefined) {
-        return
-    }
-    console.log(estimatedGas)
+    const estimatedGas = 98000;
     web3.eth.sendTransaction({...txData, gasLimit: estimatedGas + 5000})
         .catch((e) => {
             button.textContent = previousBtnText;
