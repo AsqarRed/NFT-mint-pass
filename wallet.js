@@ -102,7 +102,7 @@ export const addMintPassToken = () => {
 
     let addedMintpassTokens = localStorage.getItem('addedMintpassTokens');
 
-    if (addedMintpassTokens === undefined) {
+    if (addedMintpassTokens === undefined || addedMintpassTokens == null) {
         ethereum.request({
             method: 'wallet_watchAsset',
             params: {
