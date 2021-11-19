@@ -4,6 +4,7 @@ import {getWalletAddress, web3} from "./wallet.js";
 import {formatValue} from "./utils.js";
 
 const contractAddress = MINT_PASS_TOKEN_SELL_CONTRACT;
+const prevSold = 9;
 
 const claimMintPass = async (button) => {
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
@@ -39,7 +40,7 @@ const claimMintPass = async (button) => {
                 // alert(`Mintpass was bought`);
                 let sold = await passSellContract.methods.sold().call();
                 let reserve = await passSellContract.methods.totalAdded().call();
-                sellInfo.textContent = `${(reserve - sold)}/${reserve}`;
+                sellInfo.textContent = `${(reserve - sold - prevSold)}/${reserve}`;
             }
 
         })
@@ -117,5 +118,5 @@ export const insertClaimLink = async () => {
     const sellInfo = document.querySelector("#sell-info-mint-pass") ?? document.querySelector("a[href='#sell-info-mint-pass']");
     let sold = await passSellContract.methods.sold().call();
     let reserve = await passSellContract.methods.totalAdded().call();
-    sellInfo.textContent = `${(reserve - sold)}/${reserve}`;
+    sellInfo.textContent = `${(reserve - sold - prevSold)}/${reserve}`;
 }
