@@ -2,13 +2,17 @@ export const METOSHI_PASS_CONTRACT_V2 = {
     allowedURLs: ["metoshi.com"],
     address: {
         97: "0xdeb3813918963b9079F004278E6E380df4049F25",
-        56: "0x682ed259b79b43BC976b5A22780A539bAd75F6f9"
+        56: "0x600bcb147637b04FDd49023f539d71d50bDdbD05"
     },
     allowedNetworks: [56],
     abi: [{
-        "inputs": [{"internalType": "address", "name": "_owner", "type": "address"}, {
+        "inputs": [{"internalType": "address", "name": "_mintPass", "type": "address"}, {
             "internalType": "address",
-            "name": "_treasury",
+            "name": "_owner",
+            "type": "address"
+        }, {"internalType": "address", "name": "_treasury", "type": "address"}, {
+            "internalType": "address",
+            "name": "_admin",
             "type": "address"
         }], "stateMutability": "nonpayable", "type": "constructor"
     }, {
@@ -125,6 +129,16 @@ export const METOSHI_PASS_CONTRACT_V2 = {
             "name": "amountBNB",
             "type": "uint256"
         }],
+        "name": "buyToken",
+        "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+        "stateMutability": "payable",
+        "type": "function"
+    }, {
+        "inputs": [{"internalType": "address", "name": "recipient", "type": "address"}, {
+            "internalType": "uint256",
+            "name": "amountBNB",
+            "type": "uint256"
+        }, {"internalType": "uint256", "name": "count", "type": "uint256"}],
         "name": "buyTokens",
         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
         "stateMutability": "payable",
@@ -158,6 +172,12 @@ export const METOSHI_PASS_CONTRACT_V2 = {
         "name": "changeTreasury",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "inputs": [{"internalType": "uint256", "name": "count", "type": "uint256"}],
+        "name": "claim",
+        "outputs": [],
+        "stateMutability": "payable",
         "type": "function"
     }, {"inputs": [], "name": "claim", "outputs": [], "stateMutability": "payable", "type": "function"}, {
         "inputs": [],

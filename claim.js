@@ -10,24 +10,22 @@ const claimMintPass = async (button) => {
     const previousBtnText = button.textContent;
     button.textContent = "Loading...";
     const wallet = await getWalletAddress();
-    // let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
-    // quantity = quantity === 0 ? 1 : quantity;
-    // const tx = passContract.methods.claim(quantity);
-    // const txData = {
-    //     from: wallet
-    // }
+    let quantity = Number(document.querySelector("#select-quantity")?.value ?? 1);
+    quantity = quantity === 0 ? 1 : quantity;
+    const tx = passSellContract.methods.claim(quantity).encodeABI();
 
     const txData = {
         gas: '0x' + Number(650000).toString(16),
         to: contractAddress,
         from: wallet,
-        value: '0x' + Number(300000000000000000).toString(16),
+        value: '0x' + Number(300000000000000000 * quantity).toString(16),
+        data: tx
     };
 
-    const estimatedGas = await web3.eth.estimateGas(txData).catch((e) => {
+    const estimatedGas = await tx.estimateGas(txData).catch((e) => {
         button.textContent = previousBtnText;
-        const message = e.message.split("{")[0].trim();
-        alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
+        // const message = e.message.split("{")[0].trim();
+        // alert(`Error ${message}. Please try refreshing page, check your MetaMask connection or contact us to resolve`);
         console.log(e);
     });
     if (estimatedGas === undefined) {
@@ -39,7 +37,7 @@ const claimMintPass = async (button) => {
             button.textContent = previousBtnText;
             if (e.code !== 4001) {
                 const message = e.message.split("{")[0].trim();
-                alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
+                // alert(`Error ${message}. Please try refreshing page, checking your MetaMask connection or contact us to resolve`);
                 console.log(e);
             }
         })
